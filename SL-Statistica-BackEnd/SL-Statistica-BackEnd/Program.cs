@@ -9,6 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<LotteryDbContext>();
+builder.Services.AddSingleton<LotteryWebScraper>();
 
 var app = builder.Build();
 

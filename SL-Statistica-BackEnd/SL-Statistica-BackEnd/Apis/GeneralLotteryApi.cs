@@ -27,6 +27,19 @@ public static class GeneralLotteryApi
             var draws = ctx.Draws.FilterByParameter(parameters);
             return TypedResults.Ok(draws.Select(d => d.MapToDto()));
         });
+
+		app.MapGet("/UpdateDB", async Task<Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest>> (LotteryWebScraper webscraper, LotteryDbContext ctx) =>
+		{
+			int year = DateTime.Now.Year;
+			List<LotteryDraw> fetchedDraws = await webscraper.ScrapeLotteryData(year.ToString());
+			var lastDrawDateInDb = ctx.Draws.OrderByDescending(d => d.Date).First().Date;
+			var newDraws = fetchedDraws.Where(d => d.Date.CompareTo(lastDrawDateInDb) > 0);
+			
+            ctx.Draws.UpdateRange(newDraws);
+            ctx.SaveChanges();
+
+			return TypedResults.Ok(newDraws.Select(d => d.MapToDto()));
+		});
         return app;
     }
 
