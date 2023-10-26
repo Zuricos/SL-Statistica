@@ -28,10 +28,13 @@ public static class GeneralLotteryApi
             return TypedResults.Ok(draws.Select(d => d.MapToDto()));
         });
 
-		app.MapGet("/UpdateDB", async Task<Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest>> (LotteryWebScraper webscraper, LotteryDbContext ctx) =>
+		app.MapGet("/UpdateDB", async Task<Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest>>
+            (int? year, LotteryWebScraper webscraper, LotteryDbContext ctx) =>
 		{
-			int year = DateTime.Now.Year;
-			List<LotteryDraw> fetchedDraws = await webscraper.ScrapeLotteryData(year.ToString());
+			int yearSet = year ?? DateTime.Now.Year;
+            if (!yearSet.IsYearInLotteryDrawTimeSpan()) return TypedResults.BadRequest();
+
+			List<LotteryDraw> fetchedDraws = await webscraper.ScrapeLotteryData(yearSet.ToString());
 			var lastDrawDateInDb = ctx.Draws.OrderByDescending(d => d.Date).First().Date;
 			var newDraws = fetchedDraws.Where(d => d.Date.CompareTo(lastDrawDateInDb) > 0);
 			
