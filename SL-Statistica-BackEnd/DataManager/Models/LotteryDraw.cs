@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace DataManager.Models;
+﻿namespace DataManager.Models;
 public class LotteryDraw
 {
     public int Id { get; set; }
