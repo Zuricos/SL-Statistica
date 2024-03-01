@@ -1,6 +1,5 @@
 ﻿using Contracts;
 using DataManager;
-using DataManager.Models;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 using Utilities.Services;
@@ -12,14 +11,14 @@ public static class GeneralLotteryApi
 {
     public static WebApplication AddGeneralLotteryApi(this WebApplication app)
     {
-        app.MapGet("/LatestDraw", async Task<Results<Ok<LotteryDrawDto>, BadRequest>> (LotteryDbContext ctx) =>
+        app.MapGet("/LatestDraw", async Task<Results<Ok<LotteryDrawDto>, NotFound>> (LotteryDbContext ctx) =>
         {
             var lastDraw = await ctx.Draws.OrderBy(l => l.Date).LastOrDefaultAsync();
             if (lastDraw != null)
             {
                 return TypedResults.Ok(lastDraw.MapToDto());
             }
-            return TypedResults.BadRequest();
+            return TypedResults.NotFound();
         });
 
         app.MapGet("/",  Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest> (LotteryDbContext ctx, [AsParameters] LotteryDrawQueryParameters parameters) =>
@@ -28,18 +27,13 @@ public static class GeneralLotteryApi
             return TypedResults.Ok(draws.Select(d => d.MapToDto()));
         });
 
-		app.MapGet("/UpdateDB", async Task<Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest>>
-            (int? year, LotteryWebScraper webscraper, LotteryDbContext ctx) =>
+		app.MapPost("/UpdateDB", async Task<Results<Ok<IEnumerable<LotteryDrawDto>>, BadRequest>>
+            (int? year, LotteryWebScraper webScrapper) =>
 		{
-			int yearSet = year ?? DateTime.Now.Year;
+			var yearSet = year ?? DateTime.Now.Year;
             if (!yearSet.IsYearInLotteryDrawTimeSpan()) return TypedResults.BadRequest();
 
-			List<LotteryDraw> fetchedDraws = await webscraper.ScrapeLotteryData(yearSet.ToString());
-			var lastDrawDateInDb = ctx.Draws.OrderByDescending(d => d.Date).First().Date;
-			var newDraws = fetchedDraws.Where(d => d.Date.CompareTo(lastDrawDateInDb) > 0);
-			
-            ctx.Draws.UpdateRange(newDraws);
-            ctx.SaveChanges();
+			var newDraws = await webScrapper.ScrapeLotteryData(yearSet.ToString());
 
 			return TypedResults.Ok(newDraws.Select(d => d.MapToDto()));
 		});

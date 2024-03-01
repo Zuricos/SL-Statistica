@@ -1,23 +1,21 @@
 ﻿using DataManager.Models;
 using HtmlAgilityPack;
 using System.Globalization;
+using DataManager;
+using Microsoft.EntityFrameworkCore;
 
 namespace Utilities.Services;
-public class LotteryWebScraper
+public class LotteryWebScraper(IDbContextFactory<LotteryDbContext> dbFactory)
 {
-	private readonly HttpClient _httpClient;
-	private readonly string _baseUrl = "http://www.mylottoy.net/de/lotto-schweiz/lottozahlen/6aus45/";
+	private readonly HttpClient _httpClient = new();
+	private readonly string _baseUrl = "http://www.mylottoy.net/de/lotto-schweiz/lottozahlen/6aus45/"; //later on get this from appsettings.json
 
-	public LotteryWebScraper()
+    public async Task<List<LotteryDraw>> ScrapeLotteryData(string year)
 	{
-		_httpClient = new HttpClient();
-	}
-
-	public async Task<List<LotteryDraw>> ScrapeLotteryData(string year)
-	{
-		var dataList = new List<LotteryDraw>();
+		var newDraws = new List<LotteryDraw>();
 		try
 		{
+			var dataList = new List<LotteryDraw>();
 			// Fetch the HTML content from the url
 			var doc = await RequestHtmlPage($"{_baseUrl}lottozahlen-{year}.asp");
 
@@ -30,13 +28,20 @@ public class LotteryWebScraper
 				if (lottoDraw is null) break;
 				dataList.Add(lottoDraw);
 			}
-		}
-		catch (Exception ex)
+			await using var ctx = await dbFactory.CreateDbContextAsync();
+
+            var lastDrawDateInDb = ctx.Draws.OrderByDescending(d => d.Date).First().Date;
+             newDraws = dataList.Where(d => d.Date.CompareTo(lastDrawDateInDb) > 0).ToList();
+
+            ctx.Draws.UpdateRange(newDraws);
+            await ctx.SaveChangesAsync();
+        }
+        catch (Exception ex)
 		{
 			Console.WriteLine($"An error occurred: {ex.Message}");
 		}
 
-		return dataList;
+		return newDraws;
 	}
 
 	private async Task<HtmlDocument> RequestHtmlPage(string url)
