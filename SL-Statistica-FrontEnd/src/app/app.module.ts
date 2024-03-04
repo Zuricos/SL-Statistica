@@ -3,16 +3,18 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LotterydrawComponent } from './components/lotterydraw/lotterydraw.component';
 import { TitlebarComponent } from './components/titlebar/titlebar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TitlebarComponent
+    LotterydrawComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    TitlebarComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
