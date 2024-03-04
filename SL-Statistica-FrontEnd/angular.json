@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "SL-Statistica-FrontEnd:build:production"
+              "buildTarget": "SL-Statistica-FrontEnd:build:production"
             },
             "development": {
-              "browserTarget": "SL-Statistica-FrontEnd:build:development"
+              "buildTarget": "SL-Statistica-FrontEnd:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "SL-Statistica-FrontEnd:build"
+            "buildTarget": "SL-Statistica-FrontEnd:build"
           }
         },
         "test": {
