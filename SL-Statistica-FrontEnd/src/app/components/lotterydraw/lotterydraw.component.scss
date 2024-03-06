@@ -1,3 +1,5 @@
+@import '../../../styles.scss';
+
 .lottery-draw {
     display: flex;
     justify-content: center;
@@ -13,13 +15,13 @@
     justify-content: center;
     align-items: center;
     border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: #3f51b5;
-    color: white;
+    width: 48px;
+    height: 48px;
+    background-color: $accent-color;
+    color: $background-color;
     font-size: 20px;
   }
   
   .lucky-number-circle {
-    background-color: #f44336;
+    background-color: $primary-color;
   }

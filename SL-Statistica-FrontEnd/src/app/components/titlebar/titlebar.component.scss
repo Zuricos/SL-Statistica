@@ -1,36 +1,16 @@
-$primary-color: #f44336; // Red
-$secondary-color: #ff7961; // Light red
-$text-color: #ffffff; // White
+@import '../../../styles.scss';
 
-.title-bar {
+.mat-toolbar {
   background-color: $primary-color;
   color: $text-color;
   display: flex;
   align-items: center;
-  justify-content: center;
-  padding: 10px 20px;
+  justify-content: left;
+  padding: 0px 0px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   .title {
-    font-size: 20px;
-    font-weight: bold;
-  }
-
-  .actions {
-    display: flex;
-    gap: 10px;
-
-    .action-button {
-      background: none;
-      border: none;
-      color: $text-color;
-      cursor: pointer;
-      font-size: 18px;
-      transition: color 0.3s ease;
-
-      &:hover {
-        color: $secondary-color;
-      }
-    }
+    font-size: 28px;
+    padding-left: 10px;
   }
 }
