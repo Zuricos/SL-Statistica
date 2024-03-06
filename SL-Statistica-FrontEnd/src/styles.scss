@@ -1,3 +1,5 @@
+@use '@angular/material' as mat;
+
 /* You can add global styles to this file, and also import other style files */
 $primary-color: #f44336; // Red
 $secondary-color: #ff7961; // Light red
@@ -6,6 +8,8 @@ $background-color: #fafafa; // Light gray
 $text-color: #fafafa; // Light gray
 
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
+@import "theme.scss";
+
 
 * {
   box-sizing: border-box;
@@ -14,8 +18,8 @@ $text-color: #fafafa; // Light gray
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
-  background-color: $background-color;
+  //font-family: 'Roboto', sans-serif;
+  //background-color: $background-color;
 }
 
 .container {
@@ -27,7 +31,7 @@ body {
 }
 
 .card {
-  background:  $background-color;
+  //background:  $background-color;
   border-radius: 2px;
   display: inline-block;
   height: 300px;
@@ -38,23 +42,19 @@ body {
 }
 
 .button {
-  background-color: $primary-color;
-  color: $background-color;
+ // background-color: $primary-color;
+  //color: $background-color;
   border: none;
-  border-radius: 2px;
+  border-radius: 50%;
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: $secondary-color;
-  }
 }
 
 .mat-icon{
   scale: 1.4;
-  color: $text-color;
+  //color: $text-color;
 }
 
 .spacer{

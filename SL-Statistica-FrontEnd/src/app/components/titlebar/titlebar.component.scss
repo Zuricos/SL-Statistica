@@ -1,12 +1,13 @@
 @import '../../../styles.scss';
 
-.mat-toolbar {
-  background-color: $primary-color;
-  color: $text-color;
+.toolbar {
+ // background-color: $primary;
+ // color: $text-color;
+  background-color: primary;
   display: flex;
   align-items: center;
   justify-content: left;
-  padding: 0px 0px;
+  padding: 0px 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
   .title {
