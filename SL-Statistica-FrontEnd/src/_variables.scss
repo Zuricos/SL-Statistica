@@ -8,6 +8,10 @@ $primary: mat.get-theme-color($light-theme, primary, default);
 $primary-lighter: mat.get-theme-color($light-theme, primary, lighter);
 $primary-darker: mat.get-theme-color($light-theme, primary, darker);
 $accent: mat.get-theme-color($light-theme, accent, default);
+$accent-lighter: mat.get-theme-color($light-theme, accent, lighter);
+$accent-darker: mat.get-theme-color($light-theme, accent, darker);
 $warn: mat.get-theme-color($light-theme, warn, default);
 $background-color: mat.get-theme-color($light-theme, primary, background);
 $text-color: mat.get-theme-color($light-theme, primary, text);
+
+$text-white: #ffffff;
