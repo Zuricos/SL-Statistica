@@ -26,13 +26,9 @@
 $typography: mat.define-typography-config($font-family: 'Roboto, sans-serif');
 
 // https://m1.material.io/style/color.html#color-color-palette
-$light-primary: mat.define-palette(mat.$red-palette, 800, 900, 700);
+$light-primary: mat.define-palette(mat.$red-palette);
 $light-accent: mat.define-palette(mat.$indigo-palette);
 $light-warn: mat.define-palette(mat.$orange-palette);
-
-$dark-primary: mat.define-palette(mat.$pink-palette);
-$dark-accent: mat.define-palette(mat.$purple-palette);
-$dark-warn: mat.define-palette(mat.$orange-palette);
 
 $light-theme: mat.define-light-theme((color: (primary: $light-primary,
                 accent: $light-accent,
@@ -40,14 +36,5 @@ $light-theme: mat.define-light-theme((color: (primary: $light-primary,
             ),
             typography: $typography ));
 
-$dark-theme: mat.define-dark-theme((color: (primary: $dark-primary,
-                accent: $dark-accent,
-                warn: $dark-warn ),
-            typography: $typography ));
-
-
+//dark theme will come later.
 @include mat.all-component-themes($light-theme);
-
-// @media (prefers-color-scheme: dark) {
-//     @include mat.all-component-colors($dark-theme);
-// }

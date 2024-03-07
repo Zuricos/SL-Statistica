@@ -1,4 +1,4 @@
-@import '../../../styles.scss';
+@import 'src/variables.scss';
 
 .lottery-card {
   flex-direction: row;
@@ -14,12 +14,12 @@
   border-radius: 50%;
   width: 48px;
   height: 48px;
-  background-color: $accent-color;
-  color: $background-color;
+  background-color: $primary-lighter;
+  color: $text-color;
   font-size: 20px;
   margin: 2px 2px;
 }
 
 .lucky-number-circle {
-  background-color: $primary-color;
+  background-color: $accent;
 }

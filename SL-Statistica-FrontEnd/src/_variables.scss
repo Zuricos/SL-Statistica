@@ -1,0 +1,13 @@
+// Import material theming functions
+@use 'SASS:map';
+@use '@angular/material' as mat;
+
+@import "_theme.scss";
+
+$primary: mat.get-theme-color($light-theme, primary, default);
+$primary-lighter: mat.get-theme-color($light-theme, primary, lighter);
+$primary-darker: mat.get-theme-color($light-theme, primary, darker);
+$accent: mat.get-theme-color($light-theme, accent, default);
+$warn: mat.get-theme-color($light-theme, warn, default);
+$background-color: mat.get-theme-color($light-theme, primary, background);
+$text-color: mat.get-theme-color($light-theme, primary, text);

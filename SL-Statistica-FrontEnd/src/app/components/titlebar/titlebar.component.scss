@@ -1,9 +1,8 @@
-@import '../../../styles.scss';
+@import 'src/variables.scss';
 
 .toolbar {
- // background-color: $primary;
  // color: $text-color;
-  background-color: primary;
+  background-color: $primary;
   display: flex;
   align-items: center;
   justify-content: left;
