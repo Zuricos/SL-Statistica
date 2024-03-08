@@ -1,0 +1,24 @@
+@import 'src/variables.scss';
+
+.draw-date-card{
+    padding: 5px;
+    margin: 5px 2px 0px 2px; 
+}
+
+.draw-date-card-head{
+    flex-direction: row;
+    justify-content: space-between;
+    display: flex;
+}
+
+
+.draw-date {
+    font-size: 18px;
+    border: $accent 1px solid;
+    border-radius: 120px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 2px;
+    padding: 0px 10px;
+  }

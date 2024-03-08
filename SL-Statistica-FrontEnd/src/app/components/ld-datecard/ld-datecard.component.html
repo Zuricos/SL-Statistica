@@ -1,0 +1,13 @@
+<mat-card class="draw-date-card">
+    <div class="draw-date-card-head">
+        <div class="draw-date">{{date | date: 'dd.MM.yyyy'}}</div>
+        <button mat-icon-button (click)="toggleCollapsed()">
+            <mat-icon>{{ isCollapsed ? 'expand_more' : 'expand_less' }}</mat-icon>
+        </button>
+    </div>
+    <div *ngIf="!isCollapsed">
+        <div *ngFor="let draw of lotterydraws">
+            <app-lotterydraw></app-lotterydraw>
+        </div>
+    </div>
+</mat-card>
